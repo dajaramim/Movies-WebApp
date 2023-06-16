@@ -1,39 +1,47 @@
 <template>
   <v-container class="fill-height">
-    <!-- Movies -->
-    <h2>Most Popular Movies</h2>
 
-    <Swiper
-      :modules="modules"
-      :navigation="true"
-      :slides-per-view="3"
-      :space-between="20"
-    >
-      <SwiperSlide class="my-swiper-slide" v-for="(movie, index) in popularMovies" :key="index">
-        <v-img
-          class="image"
-          :src="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+    <!-- Movies -->
+      <h2>Most Popular Movies</h2>
+
+      <Swiper
+        :modules="modules"
+        :navigation="true"
+        :slides-per-view="3"
+        :space-between="20"
+      >
+        <SwiperSlide
+          class="my-swiper-slide"
+          v-for="(movie, index) in popularMovies"
+          :key="index"
         >
-        </v-img>
-        <div class="details-container">
-          <div class="details">
-            <h3>{{ movie.title }}</h3>
-            <p class="rating-container">
-              <img
-                class="imdb-icon"
-                src="../assets/imdb.png"
-                alt="Star Icon"
-              />
-              {{ movie.vote_average.toFixed(1) }}
-            </p>
-            <div class="d-flex justify-center">
-              <button class="detail-btn">See More</button>
+          <img
+            class="image"
+            :src="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+          
+          />
+          <div class="details-container">
+            <div class="details">
+              <h3>{{ movie.title }}</h3>
+              <p class="rating-container">
+                <img
+                  class="imdb-icon"
+                  src="../assets/imdb.png"
+                  alt="Star Icon"
+                />
+                {{ movie.vote_average.toFixed(1) }}
+              </p>
+              <div class="d-flex justify-center">
+                <button class="detail-btn">See More</button>
+              </div>
             </div>
           </div>
-        </div>
-      </SwiperSlide>
-    </Swiper>
+        </SwiperSlide>
+      </Swiper>
+
+
     <!-- TV Series -->
+    
     <h2>Most Popular TV Series</h2>
 
     <Swiper
@@ -42,12 +50,29 @@
       :slides-per-view="3"
       :space-between="20"
     >
-      <SwiperSlide v-for="(show, index) in popularShows" :key="index">
+      <SwiperSlide
+        class="my-swiper-slide"
+        v-for="(show, index) in popularShows"
+        :key="index"
+      >
         <v-img
           :src="'https://image.tmdb.org/t/p/w500' + show.poster_path"
         ></v-img>
+        <div class="details-container">
+          <div class="details">
+            <h3>{{ show.name }}</h3>
+            <p class="rating-container">
+              <img class="imdb-icon" src="../assets/imdb.png" alt="Star Icon" />
+              {{ show.vote_average.toFixed(1) }}
+            </p>
+            <div class="d-flex justify-center">
+              <button class="detail-btn">See More</button>
+            </div>
+          </div>
+        </div>
       </SwiperSlide>
     </Swiper>
+
   </v-container>
 </template>
 
@@ -131,7 +156,12 @@ export default {
   left: 0%;
   min-height: 30%;
   width: 100%;
-  background-color: rgba(44, 44, 44, 0); /* hacer el elemento completamente transparente */
+  background-color: rgba(
+    44,
+    44,
+    44,
+    0
+  ); /* hacer el elemento completamente transparente */
   text-align: start;
   transition: background-color 0.3s ease-in-out; /* transición de 0.5 segundos en la opacidad */
   pointer-events: none;
@@ -139,10 +169,15 @@ export default {
 .details {
   padding: 2rem;
   opacity: 0;
-  transition: opacity 0.5s,
+  transition: opacity 0.5s;
 }
 .my-swiper-slide:hover .details-container {
-  background-color: rgba(44, 44, 44, 0.8); /* hacer el elemento semi-transparente */
+  background-color: rgba(
+    44,
+    44,
+    44,
+    0.8
+  ); /* hacer el elemento semi-transparente */
   pointer-events: auto; /* permitir clics de nuevo */
 }
 .my-swiper-slide:hover .details {
@@ -160,14 +195,14 @@ export default {
 }
 .detail-btn {
   background-color: #eb1b24;
-  padding: 1rem 4rem;
+  padding: 0.8rem 3rem;
   color: #fff;
   font-size: 2rem;
   display: inline-block;
   font-weight: 700;
   border-radius: 3rem;
   opacity: 0.4;
-  transition: opacity .3s;
+  transition: opacity 0.3s;
   text-align: center;
 }
 .detail-btn:hover {
