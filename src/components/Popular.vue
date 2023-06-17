@@ -15,11 +15,11 @@
           v-for="(movie, index) in popularMovies"
           :key="index"
         >
-          <img
+          <v-img
             class="image"
             :src="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
           
-          />
+          ></v-img>
           <div class="details-container">
             <div class="details">
               <h3>{{ movie.title }}</h3>
@@ -32,7 +32,7 @@
                 {{ movie.vote_average.toFixed(1) }}
               </p>
               <div class="d-flex justify-center">
-                <button class="detail-btn">See More</button>
+                <button @click="selectAndGoToDetail(movie)" class="detail-btn">See More</button>
               </div>
             </div>
           </div>
@@ -66,7 +66,7 @@
               {{ show.vote_average.toFixed(1) }}
             </p>
             <div class="d-flex justify-center">
-              <button class="detail-btn">See More</button>
+              <button @click="selectAndGoToDetail(show)" class="detail-btn">See More</button>
             </div>
           </div>
         </div>
@@ -81,6 +81,9 @@ import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/navigation";
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router'; // Agrega esta línea para importar el router
+
 
 export default {
   components: {
@@ -88,8 +91,18 @@ export default {
     SwiperSlide,
   },
   setup() {
+    const store = useStore();
+    const router = useRouter(); // Agrega esta línea para utilizar el router
+
+
+  const selectAndGoToDetail = (movie) => {
+  store.dispatch('selectMovie', movie); // llama a la acción para guardar la película en el store
+  router.push({ name: 'EntityView' }); // navega al detalle
+};
     return {
       modules: [Navigation],
+      selectAndGoToDetail,
+
     };
   },
   data() {
@@ -143,13 +156,36 @@ export default {
         })
         .catch((err) => console.error(err));
     },
+    //Función para cambiar de componente a ver los detallos de una entidad
+
   },
 };
 </script>
 <style scoped>
+h2 {
+  color: #eb1b24;
+  font-size: 5rem;
+  margin-bottom: 3rem;
+}
+/* Carrusel*/
+.my-swiper-slide:hover .details-container {
+  background-color: rgba(
+    44,
+    44,
+    44,
+    0.8
+  ); /* hacer el elemento semi-transparente */
+  pointer-events: auto; /* permitir clics de nuevo */
+}
+.my-swiper-slide:hover .details {
+  opacity: 1;
+}
 .image {
   position: relative;
+  width: 100%;
 }
+
+/*Información película o serie*/
 .details-container {
   position: absolute;
   top: 70%;
@@ -171,18 +207,7 @@ export default {
   opacity: 0;
   transition: opacity 0.5s;
 }
-.my-swiper-slide:hover .details-container {
-  background-color: rgba(
-    44,
-    44,
-    44,
-    0.8
-  ); /* hacer el elemento semi-transparente */
-  pointer-events: auto; /* permitir clics de nuevo */
-}
-.my-swiper-slide:hover .details {
-  opacity: 1;
-}
+
 
 .rating-container {
   display: flex;
