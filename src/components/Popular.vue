@@ -96,7 +96,7 @@ export default {
 
 
   const selectAndGoToDetail = (movie) => {
-  store.dispatch('selectMovie', movie); // llama a la acción para guardar la película en el store
+  store.dispatch('selectMovie', movie.id); // llama a la acción para guardar la película en el store
   router.push({ name: 'EntityView' }); // navega al detalle
 };
     return {
