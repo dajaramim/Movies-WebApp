@@ -1,14 +1,13 @@
 <template>
   <SearchBar />
   <v-container class="principal-container pa-0">
-    
     <div>
       <!-- Cabecera -->
       <div class="header">
         <h2 class="title">{{ movie.title }}</h2>
         <div class="rating-container">
           <img class="imdb-icon" src="../assets/imdb.png" alt="Star Icon" />
-          <p class="rating-text">{{ movie.vote_average?.toFixed(1)}}</p>
+          <p class="rating-text">{{ movie.vote_average?.toFixed(1) }}</p>
         </div>
       </div>
 
@@ -46,26 +45,25 @@
         <!-- fin carrusel de peliculas -->
       </v-row>
 
-      <!-- Lista de géneros -->
+      <!-- Lista de géneros y Cast heading -->
       <div class="flex-container">
-      <v-col class="genre-container" v-if="movie.genres"><!-- Verifica si existen géneros -->
-        <v-row
-          class="genre"
-          v-for="(genre, index) in movie.genres"
-          :key="index"
-        >
-          {{ genre.name }}
-        </v-row>
-        
-
-      </v-col>
-      <v-col class="cast-text">Cast</v-col>
-    </div>
+        <v-col class="genre-container" v-if="movie.genres"
+          ><!-- Verifica si existen géneros -->
+          <v-row
+            class="genre"
+            v-for="(genre, index) in movie.genres"
+            :key="index"
+          >
+            {{ genre.name }}
+          </v-row>
+        </v-col>
+        <v-col class="cast-text">Cast</v-col>
+      </div>
       <!-- Fin contenido audivisual -->
 
       <!-- Detalles -->
       <div class="detail-container">
-        <v-row>
+        <v-row class="ma-0">
           <v-col class="overview-container">
             <p class="overview">{{ movie.overview }}</p>
           </v-col>
@@ -84,9 +82,15 @@
               >
                 <v-row>
                   <v-col>
-                    <v-img class="person-image"
+                    <v-img
+                      class="person-image"
                       :src="
                         'https://image.tmdb.org/t/p/w500' + person.profile_path
+                      "
+                      @click="
+                        () => {
+                          selectAndGoToDetail(person, 'person');
+                        }
                       "
                     ></v-img>
                   </v-col>
@@ -94,7 +98,6 @@
                   <v-col class="person-detail">
                     <p>{{ person.name }}</p>
                     <p>Played: {{ person.character }}</p>
-
                   </v-col>
                 </v-row>
               </SwiperSlide>
@@ -211,6 +214,13 @@ export default {
         })
         .catch((err) => console.error(err));
     },
+    selectAndGoToDetail(entity, entityType) {
+      console.log(entity);
+      this.$store.dispatch("selectEntity", entity.id); // Almacena la entidad en Vuex
+      if (entityType === "person") {
+        this.$router.push({ name: "PersonDetail", params: { id: entity.id } }); // Navega al componente PersonDetail
+      }
+    },
   },
 };
 </script>
@@ -222,6 +232,7 @@ export default {
   width: 120rem;
   padding: 0;
 }
+
 .header {
   display: flex;
   gap: 2rem;
@@ -255,6 +266,8 @@ export default {
   width: 100%;
   display: flex;
   align-items: start;
+  justify-content: start;
+  margin: 0;
 }
 .carousel {
   width: 80rem;
@@ -264,7 +277,7 @@ export default {
 }
 .image {
   height: 50rem;
-  width: 100%;
+  width: 50rem;
   padding-right: 1rem;
 }
 .videos-container {
@@ -295,11 +308,11 @@ export default {
 }
 .flex-container {
   display: flex;
+  margin: 0;
 }
 .genre-container {
   margin-top: 2rem;
   padding: 0;
-  
 }
 
 .genre {
@@ -308,7 +321,7 @@ export default {
   border: 1px solid rgb(255, 255, 255, 0.5);
   border-radius: 1rem;
   display: inline;
-  margin-right: 2rem;
+  margin: 0;
 }
 
 /* Cast*/
@@ -317,7 +330,7 @@ export default {
   font-size: 5rem;
   text-align: start;
   padding: 0;
-  margin-top: 1rem ;
+  margin-top: 1rem;
   margin-left: 10rem;
   font-weight: 400;
 }
@@ -326,16 +339,18 @@ export default {
 }
 .carousel-cast {
   width: 60rem;
-  
 }
 
 .person-image {
-
   height: 30rem;
-  
+  transition-property: opacity;
+  transition-duration: 0.3s;
+  cursor: pointer;
+}
+.person-image:hover {
+  opacity: 0.9;
 }
 .person-detail p {
   font-weight: 400;
 }
-
 </style>

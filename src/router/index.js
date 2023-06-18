@@ -2,6 +2,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MovieDetail from '@/views/MovieDetail.vue'
 import ShowDetail from '@/views/ShowDetail.vue'
+import PersonDetail from '@/views/PersonDetail.vue'
+
 const routes = [
   {
     path: '/',
@@ -28,6 +30,11 @@ const routes = [
     path: '/show/:id',
     name: 'ShowDetail',
     component: ShowDetail,
+  },
+  {
+    path: '/person/:id',
+    name: 'PersonDetail',
+    component: PersonDetail,
   },
 ]
 

@@ -92,6 +92,12 @@
               class="result-row"
               v-for="(person, index) in people"
               :key="index"
+              @click="
+              () => {
+                
+                selectAndGoToDetail(person, 'person');
+              }
+            "
             >
               <v-col cols="3" class="image-container">
                 <img
@@ -199,7 +205,7 @@ export default {
       }
       return await response.json();
     },
-    /* Viajar al componente de la pelicula o serie seleccionada */
+    /* Viajar al componente de la pelicula, serie o persona seleccionada */
     selectAndGoToDetail(entity, entityType) {
       console.log(entity);
       this.$store.dispatch("selectEntity", entity.id); // Almacena la entidad en Vuex
@@ -208,6 +214,9 @@ export default {
       } else if (entityType === "show") {
         this.$router.push({ name: "ShowDetail", params: { id: entity.id } }); // Navega al componente ShowDetail
       }
+      else if (entityType === "person") {
+        this.$router.push({ name: "PersonDetail", params: { id: entity.id } }); // Navega al componente PersonDetail
+      }
     },
   },
 };
@@ -215,7 +224,8 @@ export default {
 
 <style scoped>
 .menu {
-  background-color: #202020;
+  background-color: #0c0c0c;
+  
   display: flex;
   justify-content: space-around;
   position: relative;
