@@ -10,8 +10,8 @@
           <p class="rating-text">{{ movie.vote_average?.toFixed(1) }}</p>
         </div>
       </div>
-
       <p class="release-date">Release Date {{ movie.release_date }}</p>
+
       <!-- Poster  -->
       <v-row class="visual-container">
         <v-col class="image-container">
@@ -125,14 +125,14 @@ export default {
   setup() {
     const store = useStore();
 
-    const selectedMovie = store.state.selectedEntity;
+    const selectedMovie = store.state.selectedEntity; // obtener el id que viene del store
 
     return {
       modules: [Navigation],
       selectedMovie,
     };
   },
-
+// Aquí se almacenan para poder utilizarse mi objeto show y mis listas de videos y reparto
   data() {
     return {
       movie: {},
@@ -153,6 +153,7 @@ export default {
   },
 
   methods: {
+    //Obtengo de la api Película según ID
     fetchMovie(movie_id) {
       const options = {
         method: "GET",
@@ -173,6 +174,7 @@ export default {
         })
         .catch((err) => console.error(err));
     },
+    //Obtengo videos relacionados, como trailers, etc
     fetchMovieVideo(movie_id) {
       const options = {
         method: "GET",
@@ -193,6 +195,7 @@ export default {
         })
         .catch((err) => console.error(err));
     },
+    //Obtengo Reparto
     fetchCast(movie_id) {
       const options = {
         method: "GET",
@@ -214,6 +217,7 @@ export default {
         })
         .catch((err) => console.error(err));
     },
+    //Función que envía el id al store y enruta al componente correspondiente según entityType
     selectAndGoToDetail(entity, entityType) {
       console.log(entity);
       this.$store.dispatch("selectEntity", entity.id); // Almacena la entidad en Vuex

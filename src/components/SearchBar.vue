@@ -125,8 +125,7 @@ import { useRouter } from "vue-router";
 export default {
   setup() {
     const router = useRouter();
- 
-
+    //Función que permite ir a la raiz
     const goToHome = () => {
       router.push({ name: "Home" });
     };
@@ -165,6 +164,7 @@ export default {
     },
   },
   methods: {
+    //Buscar Películas
     async searchMovies(query) {
       const moviesResult = await this.fetchData(
         `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`
@@ -174,6 +174,7 @@ export default {
         (movie) => movie.poster_path !== null
       );
     },
+    //Buscar Series
     async searchshows(query) {
       const showsResult = await this.fetchData(
         `https://api.themoviedb.org/3/search/tv?query=${query}&language=en-US&page=1`
@@ -182,6 +183,7 @@ export default {
         (tvShow) => tvShow.poster_path !== null
       );
     },
+    //Buscar Personas
     async searchpeople(query) {
       const peopleResults = await this.fetchData(
         `https://api.themoviedb.org/3/search/person?query=${query}&include_adult=false&language=en-US&page=1`

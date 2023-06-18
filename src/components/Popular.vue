@@ -2,7 +2,7 @@
   <v-container class="principal-container fill-height pa-0">
     <!-- Movies -->
     <h2>Most Popular Movies</h2>
-
+    <!-- Carrusel -->
     <Swiper
       :modules="modules"
       :navigation="true"
@@ -26,7 +26,10 @@
               {{ movie.vote_average.toFixed(1) }}
             </p>
             <div class="d-flex justify-center">
-              <button @click="selectAndGoToDetail(movie, 'movie')" class="detail-btn">
+              <button
+                @click="selectAndGoToDetail(movie, 'movie')"
+                class="detail-btn"
+              >
                 See More
               </button>
             </div>
@@ -61,7 +64,10 @@
               {{ show.vote_average.toFixed(1) }}
             </p>
             <div class="d-flex justify-center">
-              <button @click="selectAndGoToDetail(show, 'show')" class="detail-btn">
+              <button
+                @click="selectAndGoToDetail(show, 'show')"
+                class="detail-btn"
+              >
                 See More
               </button>
             </div>
@@ -77,7 +83,6 @@ import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/navigation";
-
 
 export default {
   components: {
@@ -100,6 +105,7 @@ export default {
     this.fetchSeries();
   },
   methods: {
+    //Obtengo Películas
     fetchMovies() {
       const options = {
         method: "GET",
@@ -120,6 +126,7 @@ export default {
         })
         .catch((err) => console.error(err));
     },
+    //Obtengo series
     fetchSeries() {
       const options = {
         method: "GET",
@@ -140,16 +147,16 @@ export default {
         })
         .catch((err) => console.error(err));
     },
-    //Función para cambiar de componente a ver los detalles de una entidad
+    //Función para cambiar de componente e ir a ver los detalles de una entidad
     selectAndGoToDetail(entity, entityType) {
-      console.log(entity)
-    this.$store.dispatch("selectEntity", entity.id); // Almacena la entidad en Vuex
-    if (entityType === 'movie') {
-      this.$router.push({ name: "MovieDetail", params: { id: entity.id } }); // Navega al componente MovieDetail
-    } else if (entityType === 'show') {
-      this.$router.push({ name: "ShowDetail", params: { id: entity.id } }); // Navega al componente ShowDetail
-    }
-  }
+      console.log(entity);
+      this.$store.dispatch("selectEntity", entity.id); // Almacena la entidad en Vuex
+      if (entityType === "movie") {
+        this.$router.push({ name: "MovieDetail", params: { id: entity.id } }); // Navega al componente MovieDetail
+      } else if (entityType === "show") {
+        this.$router.push({ name: "ShowDetail", params: { id: entity.id } }); // Navega al componente ShowDetail
+      }
+    },
   },
 };
 </script>
@@ -162,7 +169,9 @@ h2 {
   font-size: 5rem;
   margin-bottom: 3rem;
 }
+
 /* Carrusel*/
+
 .my-swiper-slide:hover .details-container {
   background-color: rgba(
     44,

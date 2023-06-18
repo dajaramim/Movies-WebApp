@@ -127,14 +127,14 @@ export default {
   setup() {
     const store = useStore();
 
-    const selectedShow = store.state.selectedEntity;
+    const selectedShow = store.state.selectedEntity; // obtener el id que viene del store
 
     return {
       modules: [Navigation],
       selectedShow,
     };
   },
-
+ // Aquí se almacenan para poder utilizarse mi objeto show y mis listas de videos y reparto
   data() {
     return {
       show: {},
@@ -155,6 +155,7 @@ export default {
   },
 
   methods: {
+    //Obtengo de la api Serie de tv según ID
     fetchShow(show_id) {
       const options = {
         method: "GET",
@@ -175,6 +176,7 @@ export default {
         })
         .catch((err) => console.error(err));
     },
+    //Obtengo videos relacionados, como trailers, etc
     fetchShowVideo(show_id) {
       const options = {
         method: "GET",
@@ -195,6 +197,7 @@ export default {
         })
         .catch((err) => console.error(err));
     },
+    //Obtengo Reparto
     fetchCast(show_id) {
       const options = {
         method: "GET",
@@ -216,6 +219,7 @@ export default {
         })
         .catch((err) => console.error(err));
     },
+        //Función que envía el id al store y enruta al componente correspondiente según entityType
     selectAndGoToDetail(entity, entityType) {
       console.log(entity);
       this.$store.dispatch("selectEntity", entity.id); // Almacena la entidad en Vuex
