@@ -9,16 +9,12 @@ VueJS: Utilicé Vue porque estoy más familiarizado con el y por su fácil uso p
 
 ### Librerias
 
-Swiper: Utilicé esta librería para crear carruseles, deslizamiento de imágenes o videos
+Swiper: Utilicé esta librería para crear carruseles y permitir el deslizamiento de imágenes o videos.
 
-Vuetify: Utilicé esta librería para acomodar mediante grillas mis elementos de forma más sencilla
+Vuetify: Esta librería la utilicé para acomodar, de una forma más sencilla, mis elementos mediante grillas.
 
-Vuex: Use vuex para manejar los estados, poder guardar un id para usarlo en otro componente.
-
-
+Vuex: Utilicé Vuex para manejar los estados. Esto me permitió guardar un id para usarlo en otro componente."
 
 
 
-### Customize configuration
 
-See [Configuration Reference](https://vitejs.dev/config/).
