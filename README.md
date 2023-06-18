@@ -13,7 +13,7 @@ Swiper: Utilicé esta librería para crear carruseles y permitir el deslizamient
 
 Vuetify: Esta librería la utilicé para acomodar, de una forma más sencilla, mis elementos mediante grillas.
 
-Vuex: Utilicé Vuex para manejar los estados. Esto me permitió guardar un id para usarlo en otro componente."
+Vuex: Utilicé Vuex para manejar los estados. Esto me permitió guardar un id para usarlo en otro componente.
 
 
 
