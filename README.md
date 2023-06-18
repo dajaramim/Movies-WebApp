@@ -1,56 +1,21 @@
-# base
+# Prueba Técnica - Desarrollo de App para ver listas de películas
 
-## Project setup
+[Link de la app hosteada a netlify](https://musical-arithmetic-1966b6.netlify.app/)
 
-```
-# yarn
-yarn
+## Tecnologías
 
-# npm
-npm install
+VueJS: Utilicé Vue porque estoy más familiarizado con el y por su fácil uso para realizar desarrollos en poco tiempo
+[Api de películas](https://developer.themoviedb.org)
 
-# pnpm
-pnpm install
-```
+### Librerias
 
-### Compiles and hot-reloads for development
+Swiper: Utilicé esta librería para crear carruseles, deslizamiento de imágenes o videos
+Vuetify: Utilicé esta librería para acomodar mediante grillas mis elementos de forma más sencilla
+Vuex: Use vuex para manejar los estados, poder guardar un id para usarlo en otro componente.
 
-```
-# yarn
-yarn dev
 
-# npm
-npm run dev
 
-# pnpm
-pnpm dev
-```
 
-### Compiles and minifies for production
-
-```
-# yarn
-yarn build
-
-# npm
-npm run build
-
-# pnpm
-pnpm build
-```
-
-### Lints and fixes files
-
-```
-# yarn
-yarn lint
-
-# npm
-npm run lint
-
-# pnpm
-pnpm lint
-```
 
 ### Customize configuration
 
