@@ -10,7 +10,9 @@ VueJS: Utilicé Vue porque estoy más familiarizado con el y por su fácil uso p
 ### Librerias
 
 Swiper: Utilicé esta librería para crear carruseles, deslizamiento de imágenes o videos
+
 Vuetify: Utilicé esta librería para acomodar mediante grillas mis elementos de forma más sencilla
+
 Vuex: Use vuex para manejar los estados, poder guardar un id para usarlo en otro componente.
 
 
