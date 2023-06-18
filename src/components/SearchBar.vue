@@ -29,6 +29,7 @@
               class="result-row"
               v-for="(movie, index) in movies"
               :key="index"
+              @click="selectAndGoToDetail(movie, 'movie')"
             >
               <v-col cols="3" class="image-container">
                 <img
@@ -57,6 +58,12 @@
               class="result-row"
               v-for="(show, index) in shows"
               :key="index"
+              @click="
+                () => {
+                  
+                  selectAndGoToDetail(show, 'show');
+                }
+              "
             >
               <v-col cols="3" class="image-container">
                 <img
@@ -108,15 +115,20 @@
 
 <script>
 import { useRouter } from "vue-router";
+
 export default {
   setup() {
     const router = useRouter();
+ 
 
     const goToHome = () => {
       router.push({ name: "Home" });
     };
+
+
     return {
       goToHome,
+
     };
   },
   data() {
@@ -187,6 +199,16 @@ export default {
       }
       return await response.json();
     },
+    /* Viajar al componente de la pelicula o serie seleccionada */
+    selectAndGoToDetail(entity, entityType) {
+      console.log(entity);
+      this.$store.dispatch("selectEntity", entity.id); // Almacena la entidad en Vuex
+      if (entityType === "movie") {
+        this.$router.push({ name: "MovieDetail", params: { id: entity.id } }); // Navega al componente MovieDetail
+      } else if (entityType === "show") {
+        this.$router.push({ name: "ShowDetail", params: { id: entity.id } }); // Navega al componente ShowDetail
+      }
+    },
   },
 };
 </script>
@@ -197,7 +219,7 @@ export default {
   display: flex;
   justify-content: space-around;
   position: relative;
-  
+
   z-index: 10; /* Esto es ara que aparezca por encima del componente Popular*/
   height: 5rem;
 }
@@ -209,14 +231,13 @@ export default {
 }
 .home-router {
   font-size: 3rem;
-  transition: 0.1s
+  transition: 0.1s;
 }
 .home-router:hover {
   transform: scale(1.1);
   cursor: pointer;
   opacity: 0.8;
 }
-
 
 /* Barra de busqueda*/
 .search-bar-container {

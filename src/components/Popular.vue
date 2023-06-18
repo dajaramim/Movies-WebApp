@@ -77,8 +77,7 @@ import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/navigation";
-import { useStore } from "vuex";
-import { useRouter } from "vue-router"; // Agrega esta línea para importar el router
+
 
 export default {
   components: {
@@ -86,17 +85,8 @@ export default {
     SwiperSlide,
   },
   setup() {
-    const store = useStore();
-    const router = useRouter(); // Agrega esta línea para utilizar el router
-
-    const selectAndGoToDetail = (entity, entityType ) => {
-      store.dispatch("selectEntityType", entityType);
-      store.dispatch("selectEntity", entity.id); // llama a la acción para guardar la película en el store
-      router.push({ name: "EntityView" }); // navega al detalle
-    };
     return {
       modules: [Navigation],
-      selectAndGoToDetail,
     };
   },
   data() {
@@ -150,7 +140,16 @@ export default {
         })
         .catch((err) => console.error(err));
     },
-    //Función para cambiar de componente a ver los detallos de una entidad
+    //Función para cambiar de componente a ver los detalles de una entidad
+    selectAndGoToDetail(entity, entityType) {
+      console.log(entity)
+    this.$store.dispatch("selectEntity", entity.id); // Almacena la entidad en Vuex
+    if (entityType === 'movie') {
+      this.$router.push({ name: "MovieDetail", params: { id: entity.id } }); // Navega al componente MovieDetail
+    } else if (entityType === 'show') {
+      this.$router.push({ name: "ShowDetail", params: { id: entity.id } }); // Navega al componente ShowDetail
+    }
+  }
   },
 };
 </script>

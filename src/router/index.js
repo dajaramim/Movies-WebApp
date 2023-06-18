@@ -1,6 +1,7 @@
 // Composables
 import { createRouter, createWebHistory } from 'vue-router'
-
+import MovieDetail from '@/views/MovieDetail.vue'
+import ShowDetail from '@/views/ShowDetail.vue'
 const routes = [
   {
     path: '/',
@@ -19,12 +20,14 @@ const routes = [
 
   },
   {
-    path: '/detail',
-    name: 'EntityView',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import('@/views/EntityView.vue'),
+    path: '/movie/:id',
+    name: 'MovieDetail',
+    component: MovieDetail,
+  },
+  {
+    path: '/show/:id',
+    name: 'ShowDetail',
+    component: ShowDetail,
   },
 ]
 

@@ -1,4 +1,5 @@
 <template>
+  <SearchBar />
   <v-container class="principal-container pa-0">
     
     <div>
@@ -106,6 +107,7 @@
 </template>
 
 <script>
+import SearchBar from "@/components/SearchBar.vue";
 import { Navigation } from "swiper";
 import { useStore } from "vuex";
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -115,6 +117,7 @@ export default {
   components: {
     Swiper,
     SwiperSlide,
+    SearchBar,
   },
   setup() {
     const store = useStore();

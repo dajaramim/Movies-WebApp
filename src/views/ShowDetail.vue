@@ -1,4 +1,5 @@
 <template>
+  <SearchBar />
     <v-container class="principal-container pa-0">
       
       <div>
@@ -58,7 +59,7 @@
           
   
         </v-col>
-        <v-col class="cast-text">Cast</v-col>
+        <v-col class="cast-text" v-if="cast && cast.length" >Cast</v-col>
       </div>
         <!-- Fin contenido audivisual -->
   
@@ -106,6 +107,7 @@
   </template>
   
   <script>
+  import SearchBar from "@/components/SearchBar.vue";
   import { Navigation } from "swiper";
   import { useStore } from "vuex";
   import { Swiper, SwiperSlide } from "swiper/vue";
@@ -115,6 +117,7 @@
     components: {
       Swiper,
       SwiperSlide,
+      SearchBar,
     },
     setup() {
       const store = useStore();
@@ -327,11 +330,8 @@
     width: 60rem;
     
   }
-  
   .person-image {
-  
     height: 30rem;
-    
   }
   .person-detail p {
     font-weight: 400;
