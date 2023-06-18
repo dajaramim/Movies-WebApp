@@ -1,47 +1,42 @@
 <template>
-  <v-container class="fill-height">
-
+  <v-container class="principal-container fill-height pa-0">
     <!-- Movies -->
-      <h2>Most Popular Movies</h2>
+    <h2>Most Popular Movies</h2>
 
-      <Swiper
-        :modules="modules"
-        :navigation="true"
-        :slides-per-view="3"
-        :space-between="20"
+    <Swiper
+      :modules="modules"
+      :navigation="true"
+      :slides-per-view="3"
+      :space-between="20"
+    >
+      <SwiperSlide
+        class="my-swiper-slide"
+        v-for="(movie, index) in popularMovies"
+        :key="index"
       >
-        <SwiperSlide
-          class="my-swiper-slide"
-          v-for="(movie, index) in popularMovies"
-          :key="index"
-        >
-          <v-img
-            class="image"
-            :src="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
-          
-          ></v-img>
-          <div class="details-container">
-            <div class="details">
-              <h3>{{ movie.title }}</h3>
-              <p class="rating-container">
-                <img
-                  class="imdb-icon"
-                  src="../assets/imdb.png"
-                  alt="Star Icon"
-                />
-                {{ movie.vote_average.toFixed(1) }}
-              </p>
-              <div class="d-flex justify-center">
-                <button @click="selectAndGoToDetail(movie)" class="detail-btn">See More</button>
-              </div>
+        <v-img
+          class="image"
+          :src="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+        ></v-img>
+        <div class="details-container">
+          <div class="details">
+            <h3>{{ movie.title }}</h3>
+            <p class="rating-container">
+              <img class="imdb-icon" src="../assets/imdb.png" alt="Star Icon" />
+              {{ movie.vote_average.toFixed(1) }}
+            </p>
+            <div class="d-flex justify-center">
+              <button @click="selectAndGoToDetail(movie, 'movie')" class="detail-btn">
+                See More
+              </button>
             </div>
           </div>
-        </SwiperSlide>
-      </Swiper>
-
+        </div>
+      </SwiperSlide>
+    </Swiper>
 
     <!-- TV Series -->
-    
+
     <h2>Most Popular TV Series</h2>
 
     <Swiper
@@ -66,13 +61,14 @@
               {{ show.vote_average.toFixed(1) }}
             </p>
             <div class="d-flex justify-center">
-              <button @click="selectAndGoToDetail(show)" class="detail-btn">See More</button>
+              <button @click="selectAndGoToDetail(show, 'show')" class="detail-btn">
+                See More
+              </button>
             </div>
           </div>
         </div>
       </SwiperSlide>
     </Swiper>
-
   </v-container>
 </template>
 
@@ -81,9 +77,8 @@ import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/navigation";
-import { useStore } from 'vuex';
-import { useRouter } from 'vue-router'; // Agrega esta línea para importar el router
-
+import { useStore } from "vuex";
+import { useRouter } from "vue-router"; // Agrega esta línea para importar el router
 
 export default {
   components: {
@@ -94,15 +89,14 @@ export default {
     const store = useStore();
     const router = useRouter(); // Agrega esta línea para utilizar el router
 
-
-  const selectAndGoToDetail = (movie) => {
-  store.dispatch('selectMovie', movie.id); // llama a la acción para guardar la película en el store
-  router.push({ name: 'EntityView' }); // navega al detalle
-};
+    const selectAndGoToDetail = (entity, entityType ) => {
+      store.dispatch("selectEntityType", entityType);
+      store.dispatch("selectEntity", entity.id); // llama a la acción para guardar la película en el store
+      router.push({ name: "EntityView" }); // navega al detalle
+    };
     return {
       modules: [Navigation],
       selectAndGoToDetail,
-
     };
   },
   data() {
@@ -157,11 +151,13 @@ export default {
         .catch((err) => console.error(err));
     },
     //Función para cambiar de componente a ver los detallos de una entidad
-
   },
 };
 </script>
 <style scoped>
+.principal-container {
+  width: 120rem;
+}
 h2 {
   color: #eb1b24;
   font-size: 5rem;
@@ -207,7 +203,6 @@ h2 {
   opacity: 0;
   transition: opacity 0.5s;
 }
-
 
 .rating-container {
   display: flex;

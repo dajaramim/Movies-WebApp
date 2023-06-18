@@ -1,94 +1,105 @@
 <template>
   <div class="menu">
-    <div
-      class="search-bar-container"
-      @mouseenter="isHovering = true"
-      @mouseleave="isHovering = false"
-    >
-      <input
-        placeholder="Search"
-        class="search-bar"
-        type="text"
-        v-model="searchQuery"
-      />
-      <img class="search-icon" src="../assets/search-black.png" alt="search icon" />
+    <div class="container">
+      <div class="home-router" @click="goToHome">DanMovies</div>
       <div
-        class="search-results-container"
-        :style="{ display: searchQuery && isHovering ? 'block' : 'none' }"
+        class="search-bar-container"
+        @mouseenter="isHovering = true"
+        @mouseleave="isHovering = false"
       >
-        <!-- Películas -->
-        <div v-if="movies && movies.length">
-          <h2 class="heading-query">Movies</h2>
-          <v-row
-            class="result-row"
-            v-for="(movie, index) in movies"
-            :key="index"
-          >
-            <v-col cols="3" class="image-container">
-              <img
-                class="image"
-                :src="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
-              />
-            </v-col>
-            <v-col class="query-details">
-              {{ movie.original_title }}
-              <p class="rating-container">
+        <input
+          placeholder="Search"
+          class="search-bar"
+          type="text"
+          v-model="searchQuery"
+        />
+        <img
+          class="search-icon"
+          src="../assets/search-black.png"
+          alt="search icon"
+        />
+        <div
+          class="search-results-container"
+          :style="{ display: searchQuery && isHovering ? 'block' : 'none' }"
+        >
+          <!-- Películas -->
+          <div v-if="movies && movies.length">
+            <h2 class="heading-query">Movies</h2>
+            <v-row
+              class="result-row"
+              v-for="(movie, index) in movies"
+              :key="index"
+            >
+              <v-col cols="3" class="image-container">
                 <img
-                  class="imdb-icon"
-                  src="../assets/imdb.png"
-                  alt="Star Icon"
+                  class="image"
+                  :src="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
                 />
-                {{ movie.vote_average.toFixed(1) }}
-              </p>
-            </v-col>
-          </v-row>
-        </div>
+              </v-col>
+              <v-col class="query-details">
+                {{ movie.original_title }}
+                <p class="rating-container">
+                  <img
+                    class="imdb-icon"
+                    src="../assets/imdb.png"
+                    alt="Star Icon"
+                  />
+                  {{ movie.vote_average.toFixed(1) }}
+                </p>
+              </v-col>
+            </v-row>
+          </div>
 
-        <!-- Series de tv -->
-        <div v-if="shows && shows.length">
-          <h2 class="heading-query">Tv Shows</h2>
-          <v-row class="result-row" v-for="(show, index) in shows" :key="index">
-            <v-col cols="3" class="image-container">
-              <img
-                class="image"
-                :src="'https://image.tmdb.org/t/p/w500' + show.poster_path"
-              />
-            </v-col>
-            <v-col class="query-details">
-              {{ show.name }}
-              <p class="rating-container">
+          <!-- Series de tv -->
+          <div v-if="shows && shows.length">
+            <h2 class="heading-query">Tv Shows</h2>
+            <v-row
+              class="result-row"
+              v-for="(show, index) in shows"
+              :key="index"
+            >
+              <v-col cols="3" class="image-container">
                 <img
-                  class="imdb-icon"
-                  src="../assets/imdb.png"
-                  alt="Star Icon"
+                  class="image"
+                  :src="'https://image.tmdb.org/t/p/w500' + show.poster_path"
                 />
-                {{ show.vote_average.toFixed(1) }}
-              </p>
-            </v-col>
-          </v-row>
-        </div>
+              </v-col>
+              <v-col class="query-details">
+                {{ show.name }}
+                <p class="rating-container">
+                  <img
+                    class="imdb-icon"
+                    src="../assets/imdb.png"
+                    alt="Star Icon"
+                  />
+                  {{ show.vote_average.toFixed(1) }}
+                </p>
+              </v-col>
+            </v-row>
+          </div>
 
-        <!-- Personas -->
-        <div v-if="people && people.length">
-          <h2 class="heading-query">People</h2>
-          <v-row
-            class="result-row"
-            v-for="(person, index) in people"
-            :key="index"
-          >
-            <v-col cols="3" class="image-container">
-              <img
-                class="image"
-                :src="'https://image.tmdb.org/t/p/w500' + person.profile_path"
-              />
-            </v-col>
-            <v-col class="query-details">
-              {{ person.name }}
-              <p class="profession">
-                Known for {{ person.known_for_department }}
-              </p>
-            </v-col>
-          </v-row>
+          <!-- Personas -->
+          <div v-if="people && people.length">
+            <h2 class="heading-query">People</h2>
+            <v-row
+              class="result-row"
+              v-for="(person, index) in people"
+              :key="index"
+            >
+              <v-col cols="3" class="image-container">
+                <img
+                  class="image"
+                  :src="'https://image.tmdb.org/t/p/w500' + person.profile_path"
+                />
+              </v-col>
+              <v-col class="query-details">
+                {{ person.name }}
+                <p class="profession">
+                  Known for {{ person.known_for_department }}
+                </p>
+              </v-col>
+            </v-row>
+          </div>
         </div>
       </div>
     </div>
@@ -96,7 +107,18 @@
 </template>
 
 <script>
+import { useRouter } from "vue-router";
 export default {
+  setup() {
+    const router = useRouter();
+
+    const goToHome = () => {
+      router.push({ name: "Home" });
+    };
+    return {
+      goToHome,
+    };
+  },
   data() {
     return {
       searchQuery: "",
@@ -128,11 +150,11 @@ export default {
     async searchMovies(query) {
       const moviesResult = await this.fetchData(
         `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`
-          );
+      );
       //filtro para que no guarde los elementos que no tengan foto
       this.movies = moviesResult.results.filter(
         (movie) => movie.poster_path !== null
-      ); 
+      );
     },
     async searchshows(query) {
       const showsResult = await this.fetchData(
@@ -173,18 +195,34 @@ export default {
 .menu {
   background-color: #202020;
   display: flex;
-  align-items: center;
+  justify-content: space-around;
   position: relative;
-  justify-content: center;
+  
   z-index: 10; /* Esto es ara que aparezca por encima del componente Popular*/
   height: 5rem;
 }
+.container {
+  width: 120rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.home-router {
+  font-size: 3rem;
+  transition: 0.1s
+}
+.home-router:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+  opacity: 0.8;
+}
+
 
 /* Barra de busqueda*/
 .search-bar-container {
   background-color: #ffffff;
   height: 80%;
-  width: 30%;
+  width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -197,7 +235,6 @@ export default {
   height: 100%;
   width: 100%;
   border-radius: 1rem;
-
 }
 .search-bar:focus {
   outline: groove;
@@ -211,7 +248,7 @@ export default {
   cursor: pointer;
 }
 .search-icon:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 /* Resultado de la busqueda */
 .search-results-container {

@@ -3,16 +3,23 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    selectedMovie: null, // se almacenará aquí la película seleccionada
+    selectedEntity: null, // se almacenará aquí la película seleccionada
+    selectedEntityType: null,
   },
   mutations: {
-    SET_SELECTED_MOVIE(state, movie) {
-        state.selectedMovie = movie;
-      },
+    SET_SELECTED_ENTITY(state, entity) {
+        state.selectedEntity = entity;
+    },
+    SET_ENTITY_TYPE(state, payload) {
+      state.selectedEntityType = payload;
+    },
     },
     actions: {
-        selectMovie({ commit }, movie) {
-            commit('SET_SELECTED_MOVIE', movie);
-          },
+        selectEntity({ commit }, entity) {
+            commit('SET_SELECTED_ENTITY', entity);
+      },
+      selectEntityType({ commit }, entityType) {
+        commit('SET_ENTITY_TYPE', entityType);
+      },
   }
 })
